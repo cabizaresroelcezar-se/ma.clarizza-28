@@ -16,7 +16,7 @@ npm run build
 npm run preview
 ```
 
-Deployed to GitHub Pages: https://cabizaresroelcezar-se.github.io/follosoclarizza
+Deployed to GitHub Pages: https://cabizaresroelcezar-se.github.io/ma.clarizza-28
 
 ---
 If you want the original Astro starter README, see the project template at https://astro.build
