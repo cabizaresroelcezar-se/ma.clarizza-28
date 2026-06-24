@@ -214,6 +214,31 @@ body::before {
 
 .flip-card-back { transform: rotateY(180deg); }
 
+/* Improve flip-card readability on small screens (iPhone) */
+.flip-card-inner { display: flex; flex-direction: column; }
+.flip-card-front { display: flex; align-items: center; justify-content: center; padding: 1rem; box-sizing: border-box; }
+.flip-card-back {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start; /* ensure text starts at top instead of centering */
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: auto; /* allow scrolling when content is long */
+  -webkit-overflow-scrolling: touch;
+}
+.flip-card-back p {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+@media (max-width: 420px) {
+  .flip-card { min-height: 260px; }
+  .flip-card-inner { min-height: 260px; }
+  .flip-card-back { max-height: 240px; }
+}
+
 /* ─── Lightbox ───────────────────────────────────────────────────── */
 .lightbox {
   position: fixed;
