@@ -34,4 +34,7 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Prefer a user-provided Personal Access Token (store as `PERSONAL_TOKEN`),
+          # fall back to the workflow's built-in token when not provided.
+          token: ${{ secrets.PERSONAL_TOKEN || github.token }}
+          clean: true
