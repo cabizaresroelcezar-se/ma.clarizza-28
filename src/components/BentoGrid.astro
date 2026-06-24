@@ -1,0 +1,140 @@
+---
+// Bento Grid — interactive: 3D tilt on mouse, slide-up reveal on hover
+const traits = [
+  {
+    bg: 'bg-[#fff0f4]', border: 'border-blush-300/50',
+    emoji: '💍', label: '10 Years & A Ring',
+    description: "From 2016 to 2026, ten years of choosing each other every single day. And in 2023, you said yes. My fiancée, my best friend, the greatest love of my life. Here's to forever.",
+    accent: 'text-[var(--pink-hot)]', revealHex: '#fff0f4',
+  },
+  {
+    bg: 'bg-[#ede9fe]', border: 'border-lavender-300/50',
+    emoji: '🌙', label: 'Dreamer',
+    description: 'Always reaching for the stars, and you always get there.',
+    accent: 'text-berry-500', revealHex: '#ede9fe',
+  },
+  {
+    bg: 'bg-[#fff8e1]', border: 'border-yellow-300/40',
+    emoji: '🔥', label: 'Passionate',
+    description: 'All-in on everything you love. That fire in you is one of my favorite things.',
+    accent: 'text-orange-500', revealHex: '#fff8e1',
+  },
+  {
+    bg: 'bg-petal-50', border: 'border-petal-300/50',
+    emoji: '✨', label: 'Shining Soul',
+    description: 'You radiate warmth wherever you go. Your smile makes every room brighter, and your presence is the most beautiful gift.',
+    accent: 'text-berry-500', revealHex: '#fce4ec',
+  },
+  {
+    bg: 'bg-[#fdf2f8]', border: 'border-blush-200/60',
+    emoji: '🎨', label: 'Creative',
+    description: 'Born to make beautiful things, and everything you touch becomes one.',
+    accent: 'text-[var(--pink-hot)]', revealHex: '#fdf2f8',
+  },
+  {
+    bg: 'bg-[#f3e8ff]', border: 'border-purple-200/50',
+    emoji: '🌸', label: 'Kind & Generous',
+    description: "Your heart is your greatest superpower. You give without hesitation and love without reservation.",
+    accent: 'text-purple-600', revealHex: '#f3e8ff',
+  },
+];
+---
+
+<section class="py-24 px-6 sm:px-12 md:px-20 lg:px-28">
+  <!-- Section header -->
+  <div class="text-center mb-14 reveal">
+    <p class="font-hand text-[var(--pink-hot)] text-2xl mb-2">ten years & counting</p>
+    <h2 class="font-display font-black text-[clamp(2rem,5vw,3.8rem)] text-[var(--text-dark)] leading-tight mb-3">
+      Everything I Love <span class="text-gradient-pink italic">About You</span>
+    </h2>
+    <p class="font-hand text-[var(--text-muted)] text-xl">a few reasons among a thousand</p>
+  </div>
+
+  <!-- Balanced equal grid: 2 cols mobile, 3 cols desktop -->
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6" style="grid-auto-rows: 250px;">
+    {traits.map((trait, i) => (
+      <div
+        class={`tilt-card ${trait.bg} border ${trait.border} rounded-2xl md:rounded-3xl reveal reveal-delay-${i + 1} overflow-hidden relative`}
+      >
+        <!-- Always-visible: icon + label centered -->
+        <div class="card-front flex flex-col items-center justify-center h-full gap-3 text-center p-6 relative z-10">
+          <span class="card-emoji text-5xl md:text-6xl">{trait.emoji}</span>
+          <h3 class={`font-hand text-[1.3rem] md:text-[1.5rem] ${trait.accent} leading-tight`}>
+            {trait.label}
+          </h3>
+        </div>
+        <!-- Slide-up description overlay -->
+        <div
+          class="card-reveal absolute inset-0 flex flex-col items-center justify-center gap-3 p-5 rounded-2xl md:rounded-3xl"
+          style={`background: ${trait.revealHex};`}
+        >
+          <span class="text-4xl">{trait.emoji}</span>
+          <h3 class={`font-hand text-[1.2rem] ${trait.accent} leading-tight text-center`}>{trait.label}</h3>
+          <p class="font-sans text-[var(--text-dark)] text-sm leading-relaxed w-full text-center">
+            {trait.description}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .tilt-card {
+    cursor: default;
+    transition: box-shadow 0.3s ease, transform 0.15s ease;
+  }
+  .tilt-card:hover {
+    box-shadow: 0 16px 48px rgba(233, 30, 140, 0.13), 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+  .card-front {
+    transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .tilt-card:hover .card-front {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+  }
+  .card-emoji {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .tilt-card:hover .card-emoji {
+    transform: translateY(-6px) scale(1.15);
+  }
+  .card-reveal {
+    transform: translateY(100%);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .tilt-card:hover .card-reveal {
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.tilt-card').forEach(card => {
+    let raf: number;
+
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'transform 0.1s ease-out, box-shadow 0.3s ease';
+    });
+
+    card.addEventListener('mousemove', (e: MouseEvent) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const r = card.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
+        const dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
+        card.style.transform = `perspective(700px) rotateX(${-dy * 6}deg) rotateY(${dx * 6}deg) scale(1.03)`;
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      cancelAnimationFrame(raf);
+      card.style.transition = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease';
+      card.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) scale(1)';
+    });
+  });
+</script>
+

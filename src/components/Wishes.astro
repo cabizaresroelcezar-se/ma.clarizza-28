@@ -1,0 +1,99 @@
+---
+// Wishes — 8 flip cards, casual second-person, from Cabz
+const wishes = [
+  {
+    icon: '🌍', title: 'adventures',
+    text: "May you see every corner of the world you've ever dreamed of, and I'll always be right beside you when you do.",
+    color: '#16a34a', bg: 'bg-[#f0fdf4]', border: 'border-green-200', backBg: 'bg-[#f0fdf4]',
+  },
+  {
+    icon: '💕', title: 'our love',
+    text: "May the love we've poured into ten years only grow deeper, richer, and more beautiful with every sunrise we share.",
+    color: '#e91e8c', bg: 'bg-[#fff0f4]', border: 'border-blush-200', backBg: 'bg-[#fff0f4]',
+  },
+  {
+    icon: '🚀', title: 'your dreams',
+    text: "May every dream you dare to chase become a reality. You deserve every single one, and I'll cheer you on through all of it.",
+    color: '#7c3aed', bg: 'bg-[#f5f3ff]', border: 'border-violet-200', backBg: 'bg-[#f5f3ff]',
+  },
+  {
+    icon: '🌟', title: 'health & peace',
+    text: "May you always wake up strong, bright, and at peace with yourself — a world with you in full bloom is a better world.",
+    color: '#d97706', bg: 'bg-[#fffbeb]', border: 'border-yellow-200', backBg: 'bg-[#fffbeb]',
+  },
+  {
+    icon: '🎉', title: 'joy every day',
+    text: "May every ordinary day feel a little like this birthday, full of warmth, tiny surprises, and all the things that make you laugh.",
+    color: '#e91e8c', bg: 'bg-[#fdf2f8]', border: 'border-petal-200', backBg: 'bg-[#fdf2f8]',
+  },
+  {
+    icon: '💒', title: 'our forever',
+    text: "May our wedding day be the most beautiful chapter yet, and may the life we build together be even more wonderful than anything we've imagined.",
+    color: '#be185d', bg: 'bg-[#fff0f6]', border: 'border-pink-200', backBg: 'bg-[#fff0f6]',
+  },
+  {
+    icon: '🏡', title: 'home in me',
+    text: "May you always know you have a home in me, the safest place, the warmest place, where you are most loved and most yourself.",
+    color: '#0f766e', bg: 'bg-[#f0fdfa]', border: 'border-teal-200', backBg: 'bg-[#f0fdfa]',
+  },
+  {
+    icon: '✨', title: 'magic',
+    text: "May the universe always conspire in your favor, sprinkling a little extra magic on everything you touch, today and always.",
+    color: '#0284c7', bg: 'bg-[#f0f9ff]', border: 'border-sky-200', backBg: 'bg-[#f0f9ff]',
+  },
+];
+---
+
+<section class="py-28 px-4 sm:px-6 relative overflow-hidden w-full">
+  <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
+    <span class="absolute text-[10rem] opacity-[0.04]" style="top:5%; left:1%;">🌸</span>
+    <span class="absolute text-[10rem] opacity-[0.04]" style="bottom:5%; right:1%;">💕</span>
+  </div>
+
+  <div class="relative z-10">
+    <!-- Header -->
+    <div class="text-center mb-16 reveal">
+      <p class="font-hand text-[var(--pink-hot)] text-[22px] mb-2">from Cabz, with love</p>
+      <h2 class="font-display font-black text-[clamp(1.8rem,4vw,3rem)] text-[var(--text-dark)] leading-tight mb-3">
+        <span class="text-gradient-pink">8 Wishes</span><br />
+        <span class="text-[var(--text-dark)] text-[22px] font-semibold italic">for Babz's next chapter</span>
+      </h2>
+      <p class="font-hand text-[var(--text-muted)] text-[24px] mt-2">
+        tap each card to reveal a wish ↻
+      </p>
+    </div>
+
+    <!-- Flip card grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
+      {wishes.map((wish, i) => (
+        <div
+          class={`flip-card reveal reveal-delay-${(i % 4) + 1}`}
+          onclick="this.classList.toggle('flipped')"
+          style="min-height: 300px;"
+        >
+          <div class="flip-card-inner" style="min-height: 300px;">
+            <!-- Front: icon + title + hint -->
+            <div class={`flip-card-front ${wish.bg} border ${wish.border} p-6 flex flex-col items-center justify-center gap-3 text-center`}>
+              <span class="text-[40px] leading-none">{wish.icon}</span>
+              <h3 class="font-hand text-[24px] leading-tight" style={`color: ${wish.color}`}>
+                {wish.title}
+              </h3>
+              <span class="font-hand text-[var(--text-muted)] text-[24px] opacity-60">tap ↻</span>
+            </div>
+            <!-- Back: full wish -->
+            <div class={`flip-card-back ${wish.backBg} border ${wish.border} p-5 flex flex-col justify-center gap-2`}>
+              <span class="text-[28px] leading-none">{wish.icon}</span>
+              <h3 class="font-hand text-[24px] leading-tight" style={`color: ${wish.color}`}>
+                {wish.title}
+              </h3>
+              <p class="font-sans text-[var(--text-muted)] text-[18px] leading-relaxed">{wish.text}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+

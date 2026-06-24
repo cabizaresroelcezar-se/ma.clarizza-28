@@ -1,0 +1,126 @@
+---
+// Hero — real portrait, anniversary context, OR-inspired pink scrapbook
+import { Image } from 'astro:assets';
+import portrait from '../images/IMG_6690.JPG';
+---
+
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 sm:px-12 md:px-20 lg:px-28 pt-20 pb-16">
+
+  <!-- Ambient pastel blobs -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-[-10%] left-[-5%] w-[55vw] h-[55vw] rounded-full bg-petal-300/30 blur-[80px]"></div>
+    <div class="absolute bottom-[5%] right-[-10%] w-[45vw] h-[45vw] rounded-full bg-lavender-300/25 blur-[80px]"></div>
+    <div class="absolute top-[40%] left-[30%] w-[30vw] h-[30vw] rounded-full bg-blush-300/20 blur-[60px]"></div>
+  </div>
+
+  <!-- Floating scrapbook deco -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
+    <span class="absolute text-4xl animate-float"      style="top:12%;  left:6%;">🌸</span>
+    <span class="absolute text-3xl animate-float-slow" style="top:20%;  right:8%;">🌺</span>
+    <span class="absolute text-2xl animate-drift"      style="top:55%;  left:3%;">🌷</span>
+    <span class="absolute text-3xl animate-float"      style="bottom:18%; right:6%;">🌼</span>
+    <span class="absolute text-3xl animate-sparkle"    style="top:30%;  left:12%;">⭐</span>
+    <span class="absolute text-2xl animate-sparkle"    style="top:65%;  right:14%;">✨</span>
+    <span class="absolute text-3xl animate-float-slow" style="bottom:25%; left:10%;">💕</span>
+    <span class="absolute text-2xl animate-drift"      style="top:8%;   right:22%;">🎀</span>
+    <span class="absolute text-3xl animate-float"      style="bottom:30%; right:20%;">🦋</span>
+    <span class="absolute text-4xl animate-float-slow" style="top:10%;  right:35%;">🎂</span>
+  </div>
+
+  <!-- Confetti container -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden" id="confetti-container"></div>
+
+  <!-- Main content — two-column on lg, stacked on mobile -->
+  <div class="relative z-10 w-full flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-20">
+
+    <!-- Left: Photo in polaroid frame -->
+    <div class="animate-fade-up opacity-0 flex-shrink-0" style="animation-delay:0.3s; animation-fill-mode:forwards;">
+      <div class="polaroid -rotate-2 hover:rotate-0 transition-transform duration-500 w-[240px] md:w-[300px]">
+        <Image
+          src={portrait}
+          alt="Clarizza Folloso"
+          width={600}
+          height={800}
+          class="w-full aspect-[3/4] object-cover object-top"
+        />
+        <p class="font-script text-center text-[var(--text-mid)] text-lg mt-1">my Babz 💕</p>
+      </div>
+    </div>
+
+    <!-- Right: Text content -->
+    <div class="text-center lg:text-left flex-1">
+      <p
+        class="font-hand text-[1.6rem] md:text-[2rem] text-[var(--pink-hot)] mb-4 animate-fade-up opacity-0"
+        style="animation-delay:0.15s; animation-fill-mode:forwards;"
+      >
+        happy birthday, my Babz ♥
+      </p>
+
+      <h1
+        class="font-display font-black leading-[0.95] mb-5 animate-fade-up opacity-0"
+        style="animation-delay:0.35s; animation-fill-mode:forwards;"
+      >
+        <span class="block text-[clamp(3rem,9vw,7rem)] text-[var(--text-dark)] tracking-tight">
+          Ma. Clarizza
+        </span>
+        <span class="block text-[clamp(2.4rem,7vw,5.5rem)] text-gradient-pink italic tracking-tight">
+          Folloso - Cabizares
+        </span>
+      </h1>
+
+      <!-- Badges row -->
+      <div
+        class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-6 animate-fade-up opacity-0"
+        style="animation-delay:0.55s; animation-fill-mode:forwards;"
+      >
+        <span class="pill-btn pill-btn-pink font-hand text-xl animate-wiggle">turns 28 🎉</span>
+        <span class="pill-btn font-hand text-xl">10 years 💍</span>
+      </div>
+
+      <p
+        class="font-hand text-[var(--text-muted)] text-xl tracking-wide mb-2 animate-fade-up opacity-0"
+        style="animation-delay:0.7s; animation-fill-mode:forwards;"
+      >
+        June 25, 2026
+      </p>
+<p class="font-script text-[var(--pink-hot)] text-lg animate-fade-up opacity-0"
+          style="animation-delay:0.8s; animation-fill-mode:forwards;">
+          10th anniversary this Dec 25 · my fiancée · my Babz forever
+      </p>
+
+      <div
+        class="mt-8 animate-fade-up opacity-0"
+        style="animation-delay:1s; animation-fill-mode:forwards;"
+      >
+        <span class="font-hand text-[var(--text-muted)] text-lg">scroll down ↓</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom fade -->
+  <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#fce4ec] to-transparent pointer-events-none z-10"></div>
+</section>
+
+<script>
+  const container = document.getElementById('confetti-container');
+  if (container) {
+    const emojis = ['🌸', '💕', '✨', '🎀', '🩷', '⭐', '🌺', '🎊', '💫', '🦋', '💍'];
+    for (let i = 0; i < 40; i++) {
+      const el = document.createElement('span');
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.cssText = `
+        position: absolute;
+        font-size: ${Math.random() * 14 + 10}px;
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * -10}%;
+        animation: confettiFall ${Math.random() * 9 + 5}s linear ${Math.random() * 7}s infinite;
+        opacity: 0.65;
+        pointer-events: none;
+        user-select: none;
+      `;
+      container.appendChild(el);
+    }
+  }
+</script>
+
+

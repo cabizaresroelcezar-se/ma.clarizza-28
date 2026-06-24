@@ -1,0 +1,77 @@
+---
+// Nav — desktop top bar + mobile bottom tab bar
+---
+
+<!-- Desktop top nav (sm and up) -->
+<nav class="fixed top-0 left-0 right-0 z-50 hidden sm:flex items-center justify-between px-5 py-4">
+  <div class="flex items-center gap-4">
+    <a href="#gallery" class="pill-btn pill-btn-pink text-sm">gallery</a>
+    <a href="#wishes"  class="pill-btn text-sm">wishes</a>
+  </div>
+  <a href="#hero" class="absolute left-1/2 -translate-x-1/2 top-3">
+    <div class="w-11 h-11 rounded-full bg-[#1a0a0f] flex items-center justify-center shadow-md hover:scale-110 transition-transform">
+      <span class="font-script text-white text-lg leading-none font-bold">Cz</span>
+    </div>
+  </a>
+  <div class="flex items-center gap-4">
+    <a href="#bento"   class="pill-btn text-sm">about</a>
+    <a href="#message" class="pill-btn pill-btn-pink text-sm">message</a>
+    <span class="text-xl animate-wiggle select-none cursor-default">🎂</span>
+  </div>
+</nav>
+
+<!-- Mobile bottom tab bar -->
+<nav
+  id="mobile-nav"
+  class="fixed bottom-0 left-0 right-0 z-50 sm:hidden flex items-stretch"
+  style="background: rgba(255,248,250,0.96); backdrop-filter: blur(16px); border-top: 1.5px solid #f8bbd0; box-shadow: 0 -4px 24px rgba(233,30,140,0.08); padding-bottom: env(safe-area-inset-bottom, 6px);"
+>
+  {[
+    { href: '#hero',    icon: '🏠', label: 'home',    id: 'hero'    },
+    { href: '#bento',   icon: '💖', label: 'about',   id: 'bento'   },
+    { href: '#message', icon: '💌', label: 'letter',  id: 'message' },
+    { href: '#gallery', icon: '🖼️', label: 'gallery', id: 'gallery' },
+    { href: '#wishes',  icon: '🎁', label: 'wishes',  id: 'wishes'  },
+  ].map(tab => (
+    <a
+      href={tab.href}
+      data-tab={tab.id}
+      class="mob-tab flex-1 flex flex-col items-center justify-center gap-0.5 pt-2 pb-1 no-underline transition-colors"
+    >
+      <span class="mob-tab-icon text-[22px] leading-none transition-transform duration-200">{tab.icon}</span>
+      <span class="mob-tab-label font-hand text-[11px] leading-none transition-colors duration-200">{tab.label}</span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .mob-tab        { color: #b06080; }
+  .mob-tab.active { color: var(--pink-hot); }
+  .mob-tab.active .mob-tab-icon  { transform: translateY(-3px) scale(1.18); }
+  .mob-tab.active .mob-tab-label { font-weight: 700; }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLAnchorElement>('.mob-tab');
+
+  function setActive(id: string) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === id));
+  }
+
+  // Set initial active on load
+  setActive('hero');
+
+  // Update on scroll via IntersectionObserver
+  const sectionIds = ['hero', 'bento', 'message', 'gallery', 'wishes'];
+  const obs = new IntersectionObserver(
+    entries => {
+      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+    },
+    { threshold: 0.35 }
+  );
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+</script>
+

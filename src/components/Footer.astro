@@ -1,0 +1,59 @@
+---
+// Footer — OR-style warm pink finale, handwritten text, pill buttons
+---
+
+<footer class="relative pt-20 pb-14 px-6 sm:px-12 md:px-20 overflow-hidden">
+  <!-- Section divider -->
+  <div class="section-divider mb-16 mx-8 md:mx-24"></div>
+
+  <!-- Decorative blobs -->
+  <div class="absolute bottom-0 left-0 w-[40vw] h-[40vw] rounded-full bg-petal-300/20 blur-[80px] pointer-events-none"></div>
+  <div class="absolute top-0 right-0 w-[35vw] h-[35vw] rounded-full bg-lavender-200/20 blur-[80px] pointer-events-none"></div>
+
+  <!-- Floating emojis -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
+    <span class="absolute animate-float"      style="top:15%;  left:5%;  font-size:2rem; opacity:0.2;">🌸</span>
+    <span class="absolute animate-drift"      style="top:20%;  right:6%; font-size:2rem; opacity:0.2;">💕</span>
+    <span class="absolute animate-float-slow" style="bottom:20%; left:12%; font-size:1.8rem; opacity:0.15;">✨</span>
+    <span class="absolute animate-sparkle"    style="bottom:15%; right:10%; font-size:1.8rem; opacity:0.15;">🌺</span>
+  </div>
+
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    <!-- Huge "28" in OR-style bold -->
+    <div class="reveal mb-4">
+      <span class="font-display font-black text-[clamp(6rem,22vw,16rem)] leading-none text-gradient-pink select-none">
+        28
+      </span>
+    </div>
+
+    <!-- Script tagline -->
+    <p class="font-script text-[var(--text-mid)] text-2xl md:text-3xl mb-2 reveal reveal-delay-1">
+      you Babz, looks absolutely stunning at 28
+    </p>
+
+    <!-- Dot divider -->
+    <div class="flex justify-center gap-3 my-7 reveal reveal-delay-2">
+      {['bg-[#e91e8c]', 'bg-[#9c27b0]', 'bg-[#f48fb1]', 'bg-[#e91e8c]', 'bg-[#9c27b0]'].map((c, i) => (
+        <div class={`w-2 h-2 rounded-full ${c} animate-pulse-soft`} style={`animation-delay:${i*0.18}s`}></div>
+      ))}
+    </div>
+
+    <!-- Sticker row -->
+    <div class="flex items-center justify-center gap-3 mb-8 flex-wrap reveal reveal-delay-3">
+      {['🌸 june 25', '💍 10 years', '✨ my Babz',].map(s => (
+        <span class="sticker text-[var(--text-dark)] border-[var(--text-dark)]/30 bg-white/60 text-base">{s}</span>
+      ))}
+    </div>
+
+    <!-- Bottom credit -->
+    <p class="font-hand text-[var(--text-muted)] text-2xl reveal reveal-delay-4">
+      made with 💜 by Cabz, for my Babz · June 25, 2026
+    </p>
+
+    <div class="section-divider mt-8 reveal reveal-delay-5"></div>
+    <p class="font-hand text-[var(--text-muted)]/60 text-base mt-6 reveal reveal-delay-5">
+      Here's to many more beautiful years ahead. Happy Birthday! 🎂
+    </p>
+  </div>
+</footer>
+

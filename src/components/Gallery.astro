@@ -1,0 +1,114 @@
+---
+// Gallery — real photos in polaroid frames with lightbox on click
+import { Image } from 'astro:assets';
+import img1 from '../images/IMG_6355.JPG';
+import img2 from '../images/IMG_6527.JPG';
+import img3 from '../images/IMG_6535.JPG';
+import img4 from '../images/IMG_6690.JPG';
+import img5 from '../images/IMG_6763.JPG';
+import img6 from '../images/IMG_6809.JPG';
+import img7 from '../images/IMG_6900.JPG';
+import img8 from '../images/IMG_6954.JPG';
+
+const photos = [
+  { src: img1, alt: 'Staircase with flowers',       caption: 'she always blooms 🌸',       tilt: '-rotate-2', aspect: 'aspect-[4/3]', objPos: 'object-center' },
+  { src: img2, alt: 'Exploring a store window',      caption: 'our kind of date 💕',         tilt: 'rotate-1',  aspect: 'aspect-[3/4]', objPos: 'object-center' },
+  { src: img3, alt: 'Laughing at the poster wall',   caption: 'ten years of laughter 😂',    tilt: '-rotate-1', aspect: 'aspect-[3/4]', objPos: 'object-center' },
+  { src: img4, alt: 'Portrait of Clarizza',          caption: 'she is everything ✨',         tilt: 'rotate-2',  aspect: 'aspect-[3/4]', objPos: 'object-top'    },
+  { src: img5, alt: 'Engagement ring close-up',      caption: 'our happy place 🧡',              tilt: '-rotate-2', aspect: 'aspect-[4/3]', objPos: 'object-center' },
+  { src: img6, alt: 'Night street with lanterns',    caption: 'our kulitan nights 🌙',       tilt: 'rotate-1',  aspect: 'aspect-[3/4]', objPos: 'object-center' },
+  { src: img7, alt: 'Sitting on floor, smiling',     caption: 'she said yes 💍',           tilt: '-rotate-3', aspect: 'aspect-[4/3]', objPos: 'object-center' },
+  { src: img8, alt: 'Leaning together on tile wall', caption: 'ten years & forever more 🤍', tilt: 'rotate-2',  aspect: 'aspect-[3/4]', objPos: 'object-center' },
+];
+---
+
+<section class="py-24 px-6 sm:px-12 md:px-20 lg:px-28 relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
+    <span class="absolute text-[10rem] opacity-[0.04]" style="top:5%; left:1%;">🌸</span>
+    <span class="absolute text-[8rem] opacity-[0.04]" style="bottom:5%; right:2%;">🌺</span>
+  </div>
+
+  <div class="relative">
+    <!-- Header -->
+    <div class="text-center mb-16 reveal">
+      <p class="font-hand text-[var(--pink-hot)] text-2xl mb-2">our story in photos</p>
+      <h2 class="font-display font-black text-[clamp(2rem,5vw,3.8rem)] text-[var(--text-dark)] leading-tight mb-3">
+        A Gallery of <span class="text-gradient-pink italic">Us</span>
+      </h2>
+      <p class="font-hand text-[var(--text-muted)] text-xl">click any photo to open it ♡</p>
+    </div>
+
+    <!-- Masonry polaroid grid -->
+    <div class="columns-2 sm:columns-3 lg:columns-4 gap-5 md:gap-6 space-y-5 md:space-y-6">
+      {photos.map((photo, i) => (
+        <div
+          class={`polaroid ${photo.tilt} reveal reveal-delay-${(i % 6) + 1} break-inside-avoid cursor-pointer`}
+          data-src={photo.src.src}
+          data-caption={photo.caption}
+          data-alt={photo.alt}
+          onclick="openLightbox(this)"
+        >
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            width={600}
+            height={800}
+            class={`w-full ${photo.aspect} object-cover ${photo.objPos} rounded-sm`}
+          />
+          <p class="font-script text-center text-[var(--text-mid)] text-base mt-2 group-hover:text-[var(--pink-hot)] transition-colors pointer-events-none">
+            {photo.caption}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox overlay -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+  <div class="lightbox-frame">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+    <img id="lb-img" src="" alt="" class="w-full object-cover rounded-sm block" style="max-height: 70vh; object-fit: contain;" />
+    <p id="lb-caption" class="font-script text-center text-[var(--text-mid)] text-xl mt-3"></p>
+  </div>
+</div>
+
+<script>
+  function openLightbox(el: HTMLElement) {
+    const src     = el.dataset.src     ?? '';
+    const caption = el.dataset.caption ?? '';
+    const alt     = el.dataset.alt     ?? '';
+
+    const lb   = document.getElementById('lightbox')!;
+    const img  = document.getElementById('lb-img')     as HTMLImageElement;
+    const cap  = document.getElementById('lb-caption')!;
+
+    img.src = src;
+    img.alt = alt;
+    cap.textContent = caption;
+
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox')!;
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // expose to onclick
+  (window as any).openLightbox  = openLightbox;
+  (window as any).closeLightbox = closeLightbox;
+</script>
+
+
+
