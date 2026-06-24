@@ -63,11 +63,11 @@ const { title, description = "Happy 28th Birthday, Ma. Clarizza Folloso! A perso
     <style>
       #music-player {
         position: fixed;
-        top: 24px;
+        bottom: 24px;
         right: 24px;
         z-index: 500;
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse; /* panel above toggle on desktop */
         align-items: flex-end;
         gap: 8px;
       }
@@ -145,11 +145,12 @@ const { title, description = "Happy 28th Birthday, Ma. Clarizza Folloso! A perso
         50%       { box-shadow: 0 4px 32px rgba(233,30,140,0.6); }
       }
       @media (max-width: 640px) {
-        /* Keep player in top-right on small screens and tighten spacing */
+        /* On mobile, move player to top-right and open panel below the toggle */
         #music-player {
           top: 16px;
           right: 12px;
           bottom: auto;
+          flex-direction: column; /* panel below toggle on mobile */
           align-items: flex-end;
           gap: 6px;
         }
