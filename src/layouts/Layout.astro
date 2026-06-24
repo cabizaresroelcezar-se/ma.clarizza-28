@@ -142,6 +142,22 @@ const { title, description = "Happy 28th Birthday, Ma. Clarizza Folloso! A perso
         0%, 100% { box-shadow: 0 4px 20px rgba(233,30,140,0.35); }
         50%       { box-shadow: 0 4px 32px rgba(233,30,140,0.6); }
       }
+      @media (max-width: 640px) {
+        /* Move the music player to the right on small screens and keep the panel above the toggle */
+        #music-player {
+          left: auto;
+          right: 16px;
+          bottom: 16px;
+          align-items: flex-end;
+          gap: 6px;
+        }
+        #music-panel {
+          width: calc(100vw - 40px);
+          max-width: 360px;
+        }
+        #music-toggle { padding: 8px 12px 8px 10px; font-size: 1rem; }
+        #yt-slot iframe { height: 180px; }
+      }
     </style>
 
     <script>
