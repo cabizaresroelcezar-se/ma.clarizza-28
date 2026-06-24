@@ -75,14 +75,16 @@ const photos = [
 </div>
 
 <script>
-  function openLightbox(el: HTMLElement) {
-    const src     = el.dataset.src     ?? '';
-    const caption = el.dataset.caption ?? '';
-    const alt     = el.dataset.alt     ?? '';
+  function openLightbox(el) {
+    const src     = el.dataset.src     || '';
+    const caption = el.dataset.caption || '';
+    const alt     = el.dataset.alt     || '';
 
-    const lb   = document.getElementById('lightbox')!;
-    const img  = document.getElementById('lb-img')     as HTMLImageElement;
-    const cap  = document.getElementById('lb-caption')!;
+    const lb  = document.getElementById('lightbox');
+    const img = document.getElementById('lb-img');
+    const cap = document.getElementById('lb-caption');
+
+    if (!lb || !img || !cap) return;
 
     img.src = src;
     img.alt = alt;
@@ -94,20 +96,21 @@ const photos = [
   }
 
   function closeLightbox() {
-    const lb = document.getElementById('lightbox')!;
+    const lb = document.getElementById('lightbox');
+    if (!lb) return;
     lb.classList.remove('open');
     lb.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
   // ESC key
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeLightbox();
   });
 
   // expose to onclick
-  (window as any).openLightbox  = openLightbox;
-  (window as any).closeLightbox = closeLightbox;
+  window.openLightbox  = openLightbox;
+  window.closeLightbox = closeLightbox;
 </script>
 
 
